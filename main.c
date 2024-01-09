@@ -103,14 +103,22 @@ int buscarElementos(ListaPtr lista , void * busco){
     int pos=0;
     NodoPtr aux=crearNodo(NULL);
     aux=lista->primero;
+
     while(((PersonaPtr)aux->dato)->edad != ((PersonaPtr)busco)->edad && aux!=NULL ){
          aux=aux->sgte;
          pos++;
-    };
-    printf("encontro el dato que es %d", ((PersonaPtr)aux->dato)->edad);
 
-    return pos;
-}
+            }
+               if (aux==NULL){
+                printf(" no encontro el dato ");
+                return 0;
+            }
+        printf(" encontro el dato que es %d", ((PersonaPtr)aux->dato)->edad);
+        return pos;
+    }
+
+
+
 
 
 
@@ -160,11 +168,9 @@ int main()
 {
 PersonaPtr p1=crearPersona(33,"rober");
 PersonaPtr p2=crearPersona(32,"carlos");
-printf("-----------------------------1");
-
 PersonaPtr p3=crearPersona(3,"tony");
-
-PersonaPtr p4=crearPersona(44,"marcia");
+PersonaPtr p4=crearPersona(4,"marcia");
+PersonaPtr p5=crearPersona(3,"macarena");
 
 ListaPtr l=crearLista();
 
@@ -172,22 +178,31 @@ insertarListaOrdenado(l,p1);
 insertarListaOrdenado(l,p2);
 insertarListaOrdenado(l,p3);
 insertarListaOrdenado(l,p4);
+
 mostrarLista(l);
-printf("-----\n");
-buscarElementos(l,p1);
-printf("-----\n");
+
+printf("\n-----\n");
+
+int r=buscarElementos(l,p3);
+
+printf("\n-->-pos del buscar-->--%d---------\n",r);
+
+printf("\n-----\n");
 mostrarLista(l);
-printf("-----\n");
+
+printf("\n-----\n");
+
 eliminarNodo(l,p3);
-printf("-----\n");
+
+printf("\n-----\n");
 
 
 printf("\n-----------\n");
 mostrarLista(l);
 printf("\n-----------\n");
 eliminarNodo(l, p2);
-eliminarNodo(l, p1);
 
 mostrarLista(l);
+printf("\n-----------\n");
     return 0;
 }
