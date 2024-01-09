@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1704679932 source:c:\users\beto\desktop\ayed\finales ayed  verano 2023\practicando pilas colas listas\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1704766028 source:d:\finales ayed  verano 2023\practicando pilas colas listas\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
