@@ -112,21 +112,8 @@ int buscarElementos(ListaPtr lista , void * busco){
     return pos;
 }
 
-<<<<<<< HEAD
-int remover(ListaPtr l,void *dato){
 
-NodoPtr anterior=NULL;
-NodoPtr actual=l->primero;
-while(actual!=NULL && ((PersonaPtr)actual->dato)->edad!=((PersonaPtr)dato)->edad){
-    anterior=actual;
-    actual=actual->sgte;
-    }
-    if(anterior==NULL){
-        l->primero=actual;
-    }
-    else{
-        anterior->sgte=actual->sgte;
-=======
+
 void eliminarNodo(ListaPtr lista, void *dato) {
     NodoPtr actual = lista->primero;
     NodoPtr anterior = NULL;
@@ -165,10 +152,10 @@ int remover (Lista lista, int pos, void *backup) {
             f = lista->primero;
         else
             f = f->proximo;
->>>>>>> 2466d407e0d5f2e26bf01de5b31b717f23246adf
-    }
 
-}
+    }*/
+
+
 int main()
 {
 PersonaPtr p1=crearPersona(33,"rober");
@@ -180,7 +167,7 @@ PersonaPtr p3=crearPersona(3,"tony");
 PersonaPtr p4=crearPersona(44,"marcia");
 
 ListaPtr l=crearLista();
-<<<<<<< HEAD
+
 insertarListaOrdenado(l,p1);
 insertarListaOrdenado(l,p2);
 insertarListaOrdenado(l,p3);
@@ -191,21 +178,16 @@ buscarElementos(l,p1);
 printf("-----\n");
 mostrarLista(l);
 printf("-----\n");
-remover(l,p3);
+eliminarNodo(l,p3);
 printf("-----\n");
-=======
-insertarListaOrdenado(l,23);
-insertarListaOrdenado(l,24);
-insertarListaOrdenado(l,26);
-insertarListaOrdenado(l,25);
-printf("\-----------\n");
-buscarElementos(l,24);
+
+
 printf("\n-----------\n");
 mostrarLista(l);
 printf("\n-----------\n");
-eliminarNodo(l, 25);
-eliminarNodo(l, 24);
->>>>>>> 2466d407e0d5f2e26bf01de5b31b717f23246adf
+eliminarNodo(l, p2);
+eliminarNodo(l, p1);
+
 mostrarLista(l);
     return 0;
 }
