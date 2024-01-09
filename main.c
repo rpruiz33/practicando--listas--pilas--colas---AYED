@@ -91,36 +91,21 @@ int buscarElementos(ListaPtr lista , void * busco){
     return pos;
 }
 
-int remover(ListaPtr l,void *dato){
-
-NodoPtr proximoCpy;
-
-NodoPtr aux=crearNodo(NULL);
-int pos=buscarElementos(l , dato);
-printf ("------1\n");
-
-for (int i=0;i<pos;i++){
-        if (i==0){
-            aux=l->primero;
-        }
-        else{
-         aux=aux->sgte;
-        }
-
+void eliminarNodo(ListaPtr lista, void *dato) {
+    NodoPtr actual = lista->primero;
+    NodoPtr anterior = NULL;
+    while (actual != NULL && actual->dato != dato) {
+        anterior = actual;
+        actual = actual->sgte;
+    }
+   if (anterior == NULL) {
+        lista->primero = actual->sgte;
+    } else {
+        anterior->sgte= actual->sgte;
+    }
+    free(actual);
 }
-printf ("------1\n");
-proximoCpy = aux->sgte->sgte; // 'proximoCpy' aponta para o elemento posterior ao que será removido
-printf ("------1\n");
-        memcpy(dato, proximoCpy->dato, sizeof(dato));
 
-printf ("------1\n");
-    free(aux->sgte->dato); // Remove o VALOR do elemento (Célula) entre 'f' e 'proximoCpy', que pertence justamente o elemento que o usuário deseja remover
-    free(aux->sgte); // Remove o ELEMENTO entre 'f' e 'proximoCpy', que é justamente o elemento que o usuário deseja remover
-    /*aux->sgte = proximoCpy; // Portanto lique 'f' em 'proximoCpy'
-printf ("------1\n");*/
-
-return 1;
-}
 
 
 /*
@@ -163,11 +148,13 @@ insertarListaOrdenado(l,23);
 insertarListaOrdenado(l,24);
 insertarListaOrdenado(l,26);
 insertarListaOrdenado(l,25);
+printf("\-----------\n");
 buscarElementos(l,24);
+printf("\n-----------\n");
 mostrarLista(l);
-
-remover(l,24);
-
+printf("\n-----------\n");
+eliminarNodo(l, 25);
+eliminarNodo(l, 24);
 mostrarLista(l);
     return 0;
 }
