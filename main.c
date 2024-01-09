@@ -1,11 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-///crear una lista insertarListaOrdenado y buscar elementos siempre apuntando hacia void
+///crear una lista insertarListaOrdenado y buscar elementos siempre apuntando hacia void y castendo como una struct
 
 typedef struct NodoE * NodoPtr;
 typedef struct ListaE * ListaPtr;
+typedef struct PersonaE * PersonaPtr;
 
+struct PersonaE{
+int edad;
+char nombre[30];
+
+};
 struct NodoE{
 void *dato;
 NodoPtr sgte;
@@ -14,6 +20,19 @@ NodoPtr sgte;
 struct ListaE{
 NodoPtr primero;
 };
+
+
+PersonaPtr crearPersona(int edad,char nombre[30]){
+PersonaPtr p=malloc(sizeof(struct PersonaE));
+p->edad=edad;
+strcpy(p->nombre, nombre);
+return p;
+
+}
+char * getNombre(PersonaPtr p){
+
+return p->nombre;
+}
 
 NodoPtr crearNodo(void* dato){
 
@@ -43,16 +62,18 @@ int insertarListaOrdenado(ListaPtr lista, void *dato) {
 
     NodoPtr no = crearNodo(dato);
 
-    if (lista->primero == NULL || lista->primero->dato >dato) {
+if (lista->primero == NULL || strcmp(((PersonaPtr)lista->primero->dato)->nombre, ((PersonaPtr)no->dato)->nombre) > 0){
         no->sgte = lista->primero;
         lista->primero = no;
+        printf("-----------------x1\n");
         return 1;
     }
 
     NodoPtr actual = lista->primero;
     NodoPtr anterior = NULL;
 
-    while (actual != NULL && actual->dato < dato) {
+    while (actual != NULL &&  strcmp(((PersonaPtr)actual->dato)->nombre,  ((PersonaPtr)no->dato)->nombre)<0) {
+            printf("-----------------x2\n");
         anterior = actual;
         actual = actual->sgte;
     }
@@ -73,7 +94,7 @@ void mostrarLista(ListaPtr l){
     NodoPtr actual = l->primero;
 
     while (actual != NULL){
-        printf("%d ", actual->dato);
+        printf("%s ", ((PersonaPtr)actual->dato)->nombre);
         actual = actual->sgte;
     }
 }
@@ -82,92 +103,54 @@ int buscarElementos(ListaPtr lista , void * busco){
     int pos=0;
     NodoPtr aux=crearNodo(NULL);
     aux=lista->primero;
-    do{
+    while(((PersonaPtr)aux->dato)->edad != ((PersonaPtr)busco)->edad && aux!=NULL ){
          aux=aux->sgte;
          pos++;
-    }while(aux->dato!=busco && aux!=NULL );
-    printf("encontro el dato que es %d", aux->dato);
+    };
+    printf("encontro el dato que es %d", ((PersonaPtr)aux->dato)->edad);
 
     return pos;
 }
 
 int remover(ListaPtr l,void *dato){
 
-NodoPtr proximoCpy;
-
-NodoPtr aux=crearNodo(NULL);
-int pos=buscarElementos(l , dato);
-printf ("------1\n");
-
-for (int i=0;i<pos;i++){
-        if (i==0){
-            aux=l->primero;
-        }
-        else{
-         aux=aux->sgte;
-        }
-
-}
-printf ("------1\n");
-proximoCpy = aux->sgte->sgte; // 'proximoCpy' aponta para o elemento posterior ao que será removido
-printf ("------1\n");
-        memcpy(dato, proximoCpy->dato, sizeof(dato));
-
-printf ("------1\n");
-    free(aux->sgte->dato); // Remove o VALOR do elemento (Célula) entre 'f' e 'proximoCpy', que pertence justamente o elemento que o usuário deseja remover
-    free(aux->sgte); // Remove o ELEMENTO entre 'f' e 'proximoCpy', que é justamente o elemento que o usuário deseja remover
-    /*aux->sgte = proximoCpy; // Portanto lique 'f' em 'proximoCpy'
-printf ("------1\n");*/
-
-return 1;
-}
-
-
-/*
-int remover (Lista lista, int pos, void *backup) {
-
-    if (!lista || lista->tamanio<= 0 || pos < 0 || pos >= lista->tamanio) // lista vazia ou nula ou posição inválida
-        return FALSE;
-
-    // Remove da última posição
-    if (pos == lista->tamanio - 1)
-        return removerFinal(lista, backup);
-
-    // O usiário deseja remover um elemento do início
-    if (pos == 0)
-        return removerInicio(lista, backup);
-
-    // Remover algum elemento no MEIO da lista
-    Nodo f = NULL, proximoCpy;
-    for (int i = 0; i < pos; i++) {
-        if (i == 0)
-            f = lista->primero;
-        else
-            f = f->proximo;
+NodoPtr anterior=NULL;
+NodoPtr actual=l->primero;
+while(actual!=NULL && ((PersonaPtr)actual->dato)->edad!=((PersonaPtr)dato)->edad){
+    anterior=actual;
+    actual=actual->sgte;
     }
-    // Nesse momento 'f' aponta para o elemento anterior ao que será removido
+    if(anterior==NULL){
+        l->primero=actual;
+    }
+    else{
+        anterior->sgte=actual->sgte;
+    }
 
-    proximoCpy = f->proximo->proximo; // 'proximoCpy' aponta para o elemento posterior ao que será removido
-    memcpy(backup, f->proximo->data, lista->tamDelDatoEnBytes);
-
-    free(f->proximo->data); // Remove o VALOR do elemento (Célula) entre 'f' e 'proximoCpy', que pertence justamente o elemento que o usuário deseja remover
-    free(f->proximo); // Remove o ELEMENTO entre 'f' e 'proximoCpy', que é justamente o elemento que o usuário deseja remover
-    f->proximo = proximoCpy; // Portanto lique 'f' em 'proximoCpy'
-    lista->tamanio--;
-    return TRUE;
-}*/
+}
 int main()
 {
+PersonaPtr p1=crearPersona(33,"rober");
+PersonaPtr p2=crearPersona(32,"carlos");
+printf("-----------------------------1");
+
+PersonaPtr p3=crearPersona(3,"tony");
+
+PersonaPtr p4=crearPersona(44,"marcia");
+
 ListaPtr l=crearLista();
-insertarListaOrdenado(l,23);
-insertarListaOrdenado(l,24);
-insertarListaOrdenado(l,26);
-insertarListaOrdenado(l,25);
-buscarElementos(l,24);
+insertarListaOrdenado(l,p1);
+insertarListaOrdenado(l,p2);
+insertarListaOrdenado(l,p3);
+insertarListaOrdenado(l,p4);
 mostrarLista(l);
-
-remover(l,24);
-
+printf("-----\n");
+buscarElementos(l,p1);
+printf("-----\n");
+mostrarLista(l);
+printf("-----\n");
+remover(l,p3);
+printf("-----\n");
 mostrarLista(l);
     return 0;
 }
