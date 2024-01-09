@@ -65,7 +65,7 @@ int insertarListaOrdenado(ListaPtr lista, void *dato) {
 if (lista->primero == NULL || strcmp(((PersonaPtr)lista->primero->dato)->nombre, ((PersonaPtr)no->dato)->nombre) > 0){
         no->sgte = lista->primero;
         lista->primero = no;
-        printf("-----------------x1\n");
+
         return 1;
     }
 
@@ -73,7 +73,7 @@ if (lista->primero == NULL || strcmp(((PersonaPtr)lista->primero->dato)->nombre,
     NodoPtr anterior = NULL;
 
     while (actual != NULL &&  strcmp(((PersonaPtr)actual->dato)->nombre,  ((PersonaPtr)no->dato)->nombre)<0) {
-            printf("-----------------x2\n");
+
         anterior = actual;
         actual = actual->sgte;
     }

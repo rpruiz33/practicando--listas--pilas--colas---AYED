@@ -8,11 +8,16 @@
 	<stdlib.h>
 	<string.h>
 
-<<<<<<< HEAD
-1704807401 source:c:\users\beto\desktop\ayed\practicando pilas colas listas\main.c
-=======
+1704766028 D
+
+1704816429 source:c:\users\beto\desktop\ayed\practicando pilas colas listas\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
 1704773447 source:c:\users\beto\desktop\ayed\finales ayed  verano 2023\practicando--listas--pilas--colas---ayed\main.c
->>>>>>> 2466d407e0d5f2e26bf01de5b31b717f23246adf
+
+1704773447 6d407e0d5f2e26bf01de5b31b717f23246adf
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
