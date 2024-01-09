@@ -112,6 +112,7 @@ int buscarElementos(ListaPtr lista , void * busco){
     return pos;
 }
 
+<<<<<<< HEAD
 int remover(ListaPtr l,void *dato){
 
 NodoPtr anterior=NULL;
@@ -125,6 +126,46 @@ while(actual!=NULL && ((PersonaPtr)actual->dato)->edad!=((PersonaPtr)dato)->edad
     }
     else{
         anterior->sgte=actual->sgte;
+=======
+void eliminarNodo(ListaPtr lista, void *dato) {
+    NodoPtr actual = lista->primero;
+    NodoPtr anterior = NULL;
+    while (actual != NULL && actual->dato != dato) {
+        anterior = actual;
+        actual = actual->sgte;
+    }
+   if (anterior == NULL) {
+        lista->primero = actual->sgte;
+    } else {
+        anterior->sgte= actual->sgte;
+    }
+    free(actual);
+}
+
+
+
+/*
+int remover (Lista lista, int pos, void *backup) {
+
+    if (!lista || lista->tamanio<= 0 || pos < 0 || pos >= lista->tamanio) // lista vazia ou nula ou posição inválida
+        return FALSE;
+
+    // Remove da última posição
+    if (pos == lista->tamanio - 1)
+        return removerFinal(lista, backup);
+
+    // O usiário deseja remover um elemento do início
+    if (pos == 0)
+        return removerInicio(lista, backup);
+
+    // Remover algum elemento no MEIO da lista
+    Nodo f = NULL, proximoCpy;
+    for (int i = 0; i < pos; i++) {
+        if (i == 0)
+            f = lista->primero;
+        else
+            f = f->proximo;
+>>>>>>> 2466d407e0d5f2e26bf01de5b31b717f23246adf
     }
 
 }
@@ -139,6 +180,7 @@ PersonaPtr p3=crearPersona(3,"tony");
 PersonaPtr p4=crearPersona(44,"marcia");
 
 ListaPtr l=crearLista();
+<<<<<<< HEAD
 insertarListaOrdenado(l,p1);
 insertarListaOrdenado(l,p2);
 insertarListaOrdenado(l,p3);
@@ -151,6 +193,19 @@ mostrarLista(l);
 printf("-----\n");
 remover(l,p3);
 printf("-----\n");
+=======
+insertarListaOrdenado(l,23);
+insertarListaOrdenado(l,24);
+insertarListaOrdenado(l,26);
+insertarListaOrdenado(l,25);
+printf("\-----------\n");
+buscarElementos(l,24);
+printf("\n-----------\n");
+mostrarLista(l);
+printf("\n-----------\n");
+eliminarNodo(l, 25);
+eliminarNodo(l, 24);
+>>>>>>> 2466d407e0d5f2e26bf01de5b31b717f23246adf
 mostrarLista(l);
     return 0;
 }
