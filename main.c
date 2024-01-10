@@ -253,9 +253,9 @@ encolar(co,p4);
 printf("\nmostrarColaFrente nombre-->");
 mostrarColaFrente(co);
 
-printf("\n111111111\n");
+printf("\n***********\n");
 desencolar(co);
-printf("\n111111111\n");
+printf("\n***********\n");
 
 
 
