@@ -70,6 +70,22 @@ void mostrarColaFrente(ColaPtr cola){
     NodoPtr actual = cola->inicio;
         printf("%s ", ((PersonaPtr)actual->dato)->nombre);
 }
+
+void mostrarColaFinal(ColaPtr cola){
+     if (cola->inicio == NULL) {
+        return 0;
+    }
+NodoPtr actual=cola->inicio;
+while(actual!=NULL){
+        if(actual->sgte==NULL)
+         printf("%s---final\n ", ((PersonaPtr)actual->dato)->nombre);
+        actual=actual->sgte;
+
+}
+
+
+}
+
 int desencolar(ColaPtr cola) {
     if (cola->inicio == NULL) {
         return 0;
@@ -250,15 +266,14 @@ encolar (co,p2);
 encolar(co,p1);
 encolar(co,p3);
 encolar(co,p4);
-printf("\nmostrarColaFrente nombre-->");
+printf("\nmostrar Cola Frente nombre-->");
 mostrarColaFrente(co);
-
+printf("\n-----------\n");
+printf("\nmostrar Cola final\n");
+mostrarColaFinal(co);
 printf("\n***********\n");
 desencolar(co);
 printf("\n***********\n");
 
-
-
-printf("\n-----------\n");
     return 0;
 }
