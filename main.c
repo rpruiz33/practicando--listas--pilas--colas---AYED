@@ -8,7 +8,7 @@ typedef struct NodoE * NodoPtr;
 typedef struct ListaE * ListaPtr;
 typedef struct PersonaE * PersonaPtr;
 typedef struct ColaE * ColaPtr;
-
+typedef struct PilaE * PilaPtr;
 struct PersonaE{
 int edad;
 char nombre[30];
@@ -26,6 +26,10 @@ NodoPtr primero;
 struct ColaE{
 NodoPtr inicio;
 };
+struct PilaE{
+NodoPtr principio;
+};
+
 NodoPtr crearNodo(void* dato);
 
 
@@ -71,7 +75,7 @@ void mostrarColaFrente(ColaPtr cola){
         printf("%s ", ((PersonaPtr)actual->dato)->nombre);
 }
 
-void mostrarColaFinal(ColaPtr cola){
+int mostrarColaFinal(ColaPtr cola){
      if (cola->inicio == NULL) {
         return 0;
     }
@@ -83,7 +87,7 @@ while(actual!=NULL){
 
 }
 
-
+return 1;
 }
 
 int desencolar(ColaPtr cola) {
@@ -217,8 +221,51 @@ void eliminarNodo(ListaPtr lista, void *dato) {
     free(actual);
 }
 
+PilaPtr crearPila(){
+PilaPtr pi=malloc(sizeof(struct PilaE));
+pi->principio=NULL;
 
 
+return pi;
+};
+
+int apilar(PilaPtr p ,void * dato){
+if(p==NULL || dato==NULL){
+   return 0;
+}
+NodoPtr nodo=crearNodo(dato);
+if(p->principio == NULL){
+    p->principio=nodo;
+
+}
+else{
+nodo->sgte=p->principio;
+p->principio=nodo;
+}
+return 1;
+}
+
+int vaciarPila(PilaPtr p) {
+    if (p == NULL) {
+
+        return 0;
+    }
+
+    while (p->principio != NULL) {
+        NodoPtr nodoDesapilado = p->principio;
+        p->principio = nodoDesapilado->sgte;
+        free(nodoDesapilado);
+    }
+    return 1;
+}
+void mostrarPila(PilaPtr l){
+    NodoPtr actual = l->principio;
+
+    while (actual != NULL){
+        printf("%s ", ((PersonaPtr)actual->dato)->nombre);
+        actual = actual->sgte;
+    }
+}
 
 int main()
 {
@@ -274,6 +321,18 @@ mostrarColaFinal(co);
 printf("\n***********\n");
 desencolar(co);
 printf("\n***********\n");
-
+printf("\n----crear PILA.....\n");
+PilaPtr p=crearPila();
+apilar(p,p1);
+apilar(p,p2);
+apilar(p,p3);
+apilar(p,p4);
+apilar(p,p5);
+printf("\n------mostar pila-------\n");
+mostrarPila(p);
+vaciarPila(p);
+printf("\n------mostar pila vacia-------\n");
+mostrarPila(p);
+printf("\n------------------------------\n");
     return 0;
 }
