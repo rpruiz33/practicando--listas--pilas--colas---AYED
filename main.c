@@ -3,9 +3,11 @@
 #include <string.h>
 ///crear una lista insertarListaOrdenado y buscar elementos siempre apuntando hacia void y castendo como una struct
 
+
 typedef struct NodoE * NodoPtr;
 typedef struct ListaE * ListaPtr;
 typedef struct PersonaE * PersonaPtr;
+typedef struct ColaE * ColaPtr;
 
 struct PersonaE{
 int edad;
@@ -21,6 +23,73 @@ struct ListaE{
 NodoPtr primero;
 };
 
+struct ColaE{
+NodoPtr inicio;
+};
+NodoPtr crearNodo(void* dato);
+
+
+ColaPtr crearCola(){
+ColaPtr cola=malloc (sizeof(struct ColaE));
+cola->inicio=NULL;
+return cola;
+}
+
+int encolar(ColaPtr cola, void* dato){
+    if(cola==NULL){
+        return 0;
+    }
+
+    if (dato==NULL){
+
+        return 0;
+    }
+
+NodoPtr no=crearNodo(dato);
+if (cola->inicio==NULL){
+cola->inicio=no;
+printf("%s---encolando\n",((PersonaPtr)no->dato)->nombre);
+
+return 1;
+}
+
+NodoPtr aux=cola->inicio;
+
+    while(aux->sgte!=NULL){
+        aux=aux->sgte;
+    }
+printf("%s---encolando\n",((PersonaPtr)no->dato)->nombre);
+     aux->sgte=no;
+     no->sgte=NULL;
+    return 1;
+}
+
+
+
+void mostrarColaFrente(ColaPtr cola){
+    NodoPtr actual = cola->inicio;
+        printf("%s ", ((PersonaPtr)actual->dato)->nombre);
+}
+int desencolar(ColaPtr cola) {
+    if (cola->inicio == NULL) {
+        return 0;
+    }
+
+    NodoPtr aux = cola->inicio;
+    while (aux != NULL) {
+        printf("\n----%s nombre desencolado----\n", ((PersonaPtr)aux->dato)->nombre);
+
+        NodoPtr aux2 = aux;
+        aux = aux->sgte;
+        free(aux2);
+    }
+
+    cola->inicio = NULL;  // Después de desencolar todo, establecer el inicio a NULL
+
+    return 1;  // Éxito
+}
+
+
 
 PersonaPtr crearPersona(int edad,char nombre[30]){
 PersonaPtr p=malloc(sizeof(struct PersonaE));
@@ -34,18 +103,13 @@ char * getNombre(PersonaPtr p){
 return p->nombre;
 }
 
-NodoPtr crearNodo(void* dato){
-
-if(dato==NULL){
-    return 0;
+NodoPtr crearNodo(void * dato) {
+    NodoPtr no = malloc(sizeof(struct NodoE));
+    no->dato = dato;
+    no->sgte = NULL;
+    return no;
 }
 
-NodoPtr no=malloc(sizeof(struct NodoE));
-no->dato=dato;
-no->sgte=NULL;
-return no;
-
-}
 ListaPtr crearLista(){
 ListaPtr lista=malloc (sizeof (struct ListaE));
 lista->primero=NULL;
@@ -139,30 +203,6 @@ void eliminarNodo(ListaPtr lista, void *dato) {
 
 
 
-/*
-int remover (Lista lista, int pos, void *backup) {
-
-    if (!lista || lista->tamanio<= 0 || pos < 0 || pos >= lista->tamanio) // lista vazia ou nula ou posição inválida
-        return FALSE;
-
-    // Remove da última posição
-    if (pos == lista->tamanio - 1)
-        return removerFinal(lista, backup);
-
-    // O usiário deseja remover um elemento do início
-    if (pos == 0)
-        return removerInicio(lista, backup);
-
-    // Remover algum elemento no MEIO da lista
-    Nodo f = NULL, proximoCpy;
-    for (int i = 0; i < pos; i++) {
-        if (i == 0)
-            f = lista->primero;
-        else
-            f = f->proximo;
-
-    }*/
-
 
 int main()
 {
@@ -203,6 +243,22 @@ printf("\n-----------\n");
 eliminarNodo(l, p2);
 
 mostrarLista(l);
+printf("\n-----------\n");
+ColaPtr co =crearCola();
+printf("\nencolando en la cola\n");
+encolar (co,p2);
+encolar(co,p1);
+encolar(co,p3);
+encolar(co,p4);
+printf("\nmostrarColaFrente nombre-->");
+mostrarColaFrente(co);
+
+printf("\n111111111\n");
+desencolar(co);
+printf("\n111111111\n");
+
+
+
 printf("\n-----------\n");
     return 0;
 }
