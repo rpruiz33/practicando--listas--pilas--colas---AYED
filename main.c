@@ -173,7 +173,22 @@ if (lista->primero == NULL || strcmp(((PersonaPtr)lista->primero->dato)->nombre,
     return 1;
 }
 
+int duplicarLista(ListaPtr l){
+if (l==NULL){
+    return 0;
+}
+NodoPtr aux=NULL;
+aux=l->primero;
+ListaPtr listadupli=crearLista();
+while (aux!=NULL){
 
+   insertarListaOrdenado(listadupli,aux->dato);
+    aux=aux->sgte;
+}
+
+return 1;
+
+}
 void mostrarLista(ListaPtr l){
     NodoPtr actual = l->primero;
 
@@ -284,8 +299,13 @@ insertarListaOrdenado(l,p4);
 
 mostrarLista(l);
 
-printf("\n-----\n");
+printf("\n---duplicar la lista--\n");
 
+duplicarLista(l);
+
+mostrarLista(l);
+
+printf("\n-----\n");
 int r=buscarElementos(l,p3);
 
 printf("\n-->-pos del buscar-->--%d---------\n",r);
