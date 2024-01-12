@@ -173,9 +173,9 @@ if (lista->primero == NULL || strcmp(((PersonaPtr)lista->primero->dato)->nombre,
     return 1;
 }
 
-int duplicarLista(ListaPtr l){
+ListaPtr duplicarLista(ListaPtr l){
 if (l==NULL){
-    return 0;
+    return NULL;
 }
 NodoPtr aux=NULL;
 aux=l->primero;
@@ -183,6 +183,23 @@ ListaPtr listadupli=crearLista();
 while (aux!=NULL){
 
    insertarListaOrdenado(listadupli,aux->dato);
+    aux=aux->sgte;
+}
+
+return listadupli;
+
+}
+int triplicarLista(ListaPtr l){
+if(l==NULL){
+return 0;
+}
+ListaPtr lis3=crearLista();
+ListaPtr lis=duplicarLista(l);
+NodoPtr aux=NULL;
+aux=lis->primero;
+while (aux!=NULL){
+
+   insertarListaOrdenado(lis3,aux->dato);
     aux=aux->sgte;
 }
 
@@ -302,6 +319,11 @@ mostrarLista(l);
 printf("\n---duplicar la lista--\n");
 
 duplicarLista(l);
+
+mostrarLista(l);
+printf("\n---triplicar la lista--\n");
+
+triplicarLista(l);
 
 mostrarLista(l);
 
