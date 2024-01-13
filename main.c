@@ -274,11 +274,11 @@ while(ordenar!=NULL){
         NodoPtr siguiente=ordenar->sgte;
 
     while(siguiente!=NULL){
-        if(strcmp(((PersonaPtr)ordenar->dato)->nombre ,((PersonaPtr)ordenar->sgte->dato)->nombre)<-1){
+        if(strcmp(((PersonaPtr)ordenar->dato)->nombre ,((PersonaPtr)siguiente->dato)->nombre)>0){///de menor a mayor
 
-            aux=ordenar->dato;
-            ordenar->dato=siguiente->dato;
-            siguiente->dato=aux;
+            aux=siguiente->dato;
+            siguiente->dato=ordenar->dato;
+            ordenar->dato=aux;
 
 
         }
