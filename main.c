@@ -214,7 +214,15 @@ void mostrarLista(ListaPtr l){
         actual = actual->sgte;
     }
 }
+void mostrarListaXedad(ListaPtr l){
 
+    NodoPtr actual = l->primero;
+
+    while (actual != NULL){
+        printf("nombre-->%s-->edad-->%d \n", ((PersonaPtr)actual->dato)->nombre,((PersonaPtr)actual->dato)->edad);
+        actual = actual->sgte;
+    }
+}
 int buscarElementos(ListaPtr lista , void * busco){
     int pos=0;
     NodoPtr aux=crearNodo(NULL);
@@ -235,9 +243,53 @@ int buscarElementos(ListaPtr lista , void * busco){
 
 
 
+void ordenarElementosListaXedad(ListaPtr  l){
+NodoPtr ordenar=l->primero;
+NodoPtr aux=NULL;
+while(ordenar!=NULL){
+        NodoPtr siguiente=ordenar->sgte;
+
+    while(siguiente!=NULL){
+        if(((PersonaPtr)ordenar->dato)->edad <((PersonaPtr)ordenar->sgte->dato)->edad){
+
+            aux=ordenar->dato;
+            ordenar->dato=siguiente->dato;
+            siguiente->dato=aux;
 
 
+        }
 
+siguiente=siguiente->sgte;
+
+
+}
+ordenar = ordenar->sgte;
+}
+}
+
+void ordenarElementosListaXnombre(ListaPtr  l){
+NodoPtr ordenar=l->primero;
+NodoPtr aux=NULL;
+while(ordenar!=NULL){
+        NodoPtr siguiente=ordenar->sgte;
+
+    while(siguiente!=NULL){
+        if(strcmp(((PersonaPtr)ordenar->dato)->nombre ,((PersonaPtr)ordenar->sgte->dato)->nombre)<-1){
+
+            aux=ordenar->dato;
+            ordenar->dato=siguiente->dato;
+            siguiente->dato=aux;
+
+
+        }
+
+siguiente=siguiente->sgte;
+
+
+}
+ordenar = ordenar->sgte;
+}
+}
 void eliminarNodo(ListaPtr lista, void *dato) {
     NodoPtr actual = lista->primero;
     NodoPtr anterior = NULL;
@@ -335,7 +387,14 @@ printf("\n-->-pos del buscar-->--%d---------\n",r);
 printf("\n-----\n");
 mostrarLista(l);
 
+printf("\n-->ordenar lista X edad-->----------------\n");
+ordenarElementosListaXedad(l);
+mostrarListaXedad(l);
 printf("\n-----\n");
+printf("\n-->ordenar lista X nombre-->----------------\n");
+ordenarElementosListaXnombre(l);
+mostrarListaXedad(l);
+
 
 eliminarNodo(l,p3);
 
