@@ -9,6 +9,15 @@ typedef struct ListaE * ListaPtr;
 typedef struct PersonaE * PersonaPtr;
 typedef struct ColaE * ColaPtr;
 typedef struct PilaE * PilaPtr;
+typedef struct NodaA * NodoAptr;
+///ahora trabajamos con arboles avl
+struct NodoA{
+int fe;
+void * ptrDato;
+NodoAptr izq;
+NodoAptr der;
+};
+
 struct PersonaE{
 int edad;
 char nombre[30];
